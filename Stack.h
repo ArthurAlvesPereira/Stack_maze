@@ -13,6 +13,9 @@ typedef struct stack
     Node* top;
 } Stack;
 
+typedef void* Stackp;
 void* initStack();
+
+void push(Stack* stack, void* data);
 
 #endif

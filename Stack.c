@@ -18,7 +18,7 @@ int isEmpty(Stack* stack){
     }
 }
 
-void push(Stack* stack, char data){
+void push(Stack* stack, void* data){
     Node* new = (Node*) malloc(sizeof(Node));
     new->data = data;
     new->below = stack->top;

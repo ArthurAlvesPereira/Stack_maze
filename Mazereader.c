@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "Mazereader.h"
+#include "Stack.h"
 
 FILE* openMaze(){
     FILE* fp = fopen("labirinto.txt", "r");
@@ -13,8 +14,11 @@ FILE* openMaze(){
 
 }
 
-void scanMaze(FILE* fp, Maze* maze1){
+void scanMaze(FILE* fp, Maze* maze1, void* stack){
     int size;
+    
+    Stack* s = (Stack*) stack;
+
     fscanf(fp, "%d", &size);
     maze1->size = size;
 
@@ -31,6 +35,9 @@ void scanMaze(FILE* fp, Maze* maze1){
         }
         // printf("\n");
     }
+
+    push(s, maze1);
+
 }
 
 void printMaze(Maze* maze1){
@@ -58,11 +65,13 @@ void printMaze(Maze* maze1){
     }
 }
 
-void verifyMaze(Maze* maze1){
-    for (int i = 0; i < maze1->size; i++){
-        for (int j = 0;j < maze1->size; j++){
-            if (maze1->mazeint[i][j] == 2){  //Entra em estado de verifição de qual direção esta livre
-                verifydirection(maze1, i, j);
+void verifyMaze(Stack* stack){
+    Stack *s = (Stack*) stack;
+    for (int i = 0; i < stack->top->data->size; i++){
+        for (int j = 0;j < s->top->data->size; j++){
+            if (s->top->data->mazeint[i][j] == 2){  //Entra em estado de verifição de qual direção esta livre
+                // verifydirection(maze1, i, j);
+                printf("Ponto inicial encontrado");
             }
 
         }

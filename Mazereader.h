@@ -11,11 +11,11 @@ typedef struct maze {
 
 FILE* openMaze();
 
-void scanMaze(FILE* fp, Maze* maze);
+void scanMaze(FILE* fp, Maze* maze, void* stack);
 
 void printMaze(Maze* maze);
 
-void verifyMaze(Maze* maze);
+void verifyMaze(void* stack);
 
 void verifydirection(Maze* maze, int i, int j);
 
