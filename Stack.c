@@ -2,39 +2,43 @@
 #include <stdlib.h>
 #include "Stack.h"
 
-void* initStack(){
-    Stack* stack = (Stack*) malloc(sizeof(Stack));
-    stack->size = 0;
-    stack->top = NULL;
+void* createStack() {
+    Stack* stack = (Stack*)malloc(sizeof(Stack));
     return stack;
 }
 
-int isEmpty(Stack* stack){
-    if (stack->size == 0)
-    {
+void push(Stack *stack, int x, int y){
+    Node* node = (Node*)malloc(sizeof(Node));
+    node->x = x;
+    node->y = y;
+    node->next = stack->top;
+    stack->top = node;
+}
+
+void pop(Stack *stack){
+    Node* node = stack->top;
+    stack->top = node->next;
+    free(node);
+}
+
+void* top(Stack *stack){
+    return stack->top;
+}
+
+int isEmpty(Stack *stack){
+    if (stack->top == NULL){
         return 1;
     } else {
         return 0;
     }
 }
 
-void push(Stack* stack, char data){
-    Node* new = (Node*) malloc(sizeof(Node));
-    new->data = data;
-    new->below = stack->top;
-
-    stack->top = new;
-    stack->size +=1;
+void killStack(Stack *stack){
+    Node* node = stack->top;
+    while (node != NULL){
+        Node* temp = node->next;
+        free(node);
+        node = temp;
+    }
+    free(stack);
 }
-
-void pop(Stack* stack){
-    Node* aux = (Node*) malloc(sizeof(Node));
-
-    aux = stack->top->below;
-    free(stack->top);
-    stack->top = aux;
-    stack->size -= 1;
-    free(aux);
-}
-
-
